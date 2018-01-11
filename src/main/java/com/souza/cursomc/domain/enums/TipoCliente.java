@@ -1,7 +1,5 @@
 package com.souza.cursomc.domain.enums;
 
-import org.jboss.weld.exceptions.IllegalArgumentException;
-
 public enum TipoCliente {
 
 	PESSOAFISICA(1, "Pessoa Física"),
