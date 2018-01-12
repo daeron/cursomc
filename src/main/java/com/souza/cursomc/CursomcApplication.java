@@ -133,8 +133,6 @@ public class CursomcApplication implements CommandLineRunner{
 		p2.getItens().addAll(Arrays.asList(ip3));
 		p3.getItens().addAll(Arrays.asList(ip2));
 
-		itemPedidoRepository.save(Arrays.asList(ip1, ip2, ip3));
-		
-		
+		itemPedidoRepository.save(Arrays.asList(ip1, ip2, ip3));		
 	}
 }
