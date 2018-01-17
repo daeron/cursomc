@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -18,41 +19,45 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.souza.cursomc.domain.enums.TipoCliente;
 
 @Entity
-public class Cliente implements Serializable{
+public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
 	private String email;
 	private String cpfouCnpj;
 	private Integer tipo;
-	
-	@OneToMany(mappedBy="cliente")
+
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
-	
+
 	@ElementCollection
-	@CollectionTable(name="TELEFONE")
+	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefones = new HashSet<>();
-	
+
 	@JsonIgnore
-	@OneToMany(mappedBy="cliente")
+	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
+
 	public Cliente() {
-		
+
 	}
 
-	public Cliente(Integer id, String nome, String email, String cpfouCnpj, TipoCliente tipo/*, List<Endereco> enderecos,
-			Set<String> telefones*/) {
+	public Cliente(Integer id, String nome, String email, String cpfouCnpj,
+			TipoCliente tipo/*
+							 * , List<Endereco> enderecos, Set<String> telefones
+							 */) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.cpfouCnpj = cpfouCnpj;
-		this.tipo = (tipo==null) ? null : tipo.getCod();
-		/*this.enderecos = enderecos;
-		this.telefones = telefones;*/
+		this.tipo = (tipo==null) ? null : tipo.getCod();;
+		/*
+		 * this.enderecos = enderecos; this.telefones = telefones;
+		 */
 	}
 
 	public Integer getId() {
@@ -110,6 +115,7 @@ public class Cliente implements Serializable{
 	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
 	}
+
 	public List<Pedido> getPedidos() {
 		return pedidos;
 	}
@@ -142,8 +148,4 @@ public class Cliente implements Serializable{
 			return false;
 		return true;
 	}
-
-
-	
-	
 }

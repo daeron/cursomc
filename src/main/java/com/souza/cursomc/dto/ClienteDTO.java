@@ -7,11 +7,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.souza.cursomc.domain.Cliente;
 
 public class ClienteDTO {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;;
 
 	private Integer id;
 	
-	@NotEmpty(message="Preenchimento obrigatorio")
+	@NotEmpty(message="Preenchimento obrigatório")
 	@Length(min=5, max=120, message="O tamanho deve ser entre 5 e 120 caracteres")
 	private String nome;
 	
