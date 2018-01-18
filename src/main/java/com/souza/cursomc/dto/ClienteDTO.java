@@ -5,8 +5,11 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.souza.cursomc.domain.Cliente;
+import com.souza.cursomc.services.validation.ClienteUpdate;
 
+@ClienteUpdate
 public class ClienteDTO {
+	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;;
 
 	private Integer id;

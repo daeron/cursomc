@@ -98,6 +98,6 @@ public class ClienteService {
 
 	private void updateDate(Cliente newObj, Cliente obj) {
 		newObj.setNome(obj.getNome());
-		newObj.setEmail(obj.getNome());
+		newObj.setEmail(obj.getEmail());
 	}
 }
