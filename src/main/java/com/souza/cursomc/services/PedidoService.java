@@ -1,13 +1,9 @@
 package com.souza.cursomc.services;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-
 import java.util.Date;
-import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.souza.cursomc.domain.ItemPedido;
 import com.souza.cursomc.domain.PagamentoComBoleto;
 import com.souza.cursomc.domain.Pedido;
