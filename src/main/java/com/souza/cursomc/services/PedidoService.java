@@ -1,11 +1,22 @@
 package com.souza.cursomc.services;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
+
+import java.util.Date;
+import java.util.Iterator;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.souza.cursomc.domain.ItemPedido;
+import com.souza.cursomc.domain.PagamentoComBoleto;
 import com.souza.cursomc.domain.Pedido;
+import com.souza.cursomc.domain.enums.EstadoPagamento;
 import com.souza.cursomc.exceptions.ObjectNotFoundException;
+import com.souza.cursomc.repositories.ItemPedidoRepository;
+import com.souza.cursomc.repositories.PagamentoRepository;
 import com.souza.cursomc.repositories.PedidoRepository;
+import com.souza.cursomc.repositories.ProdutoRepository;
 
 @Service
 public class PedidoService {
@@ -13,6 +24,17 @@ public class PedidoService {
 	@Autowired
 	private PedidoRepository repo;
 	
+	@Autowired
+	private BoletoService boletoService;
+	
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	public Pedido find(Integer id) {		
 		Pedido obj = repo.findOne(id);
 		if (obj ==null) {
@@ -20,5 +42,26 @@ public class PedidoService {
 					+ ", Tipo: " + Pedido.class.getName());
 		}
 		return obj;		
+	}
+
+	public Pedido insert(Pedido obj) {
+		obj.setId(null);
+		obj.setInstante(new Date());
+		obj.getPagamento().setEstado(EstadoPagamento.PENDENTE);
+		obj.getPagamento().setPedido(obj);
+		if (obj.getPagamento() instanceof PagamentoComBoleto) {
+			PagamentoComBoleto pagto = (PagamentoComBoleto) obj.getPagamento();
+			boletoService.preencherPagamentoComBoleto(pagto, obj.getInstante());
+			
+		}
+		obj = repo.save(obj);
+		pagamentoRepository.save(obj.getPagamento());
+		for (ItemPedido ip: obj.getItens()) {
+			ip.setDesconto(0.0);
+			ip.setPreco(produtoRepository.findOne(ip.getProduto().getId()).getPreco());
+			ip.setPedido(obj);			
+		}
+		itemPedidoRepository.save(obj.getItens());
+		return obj;
 	}
 }
