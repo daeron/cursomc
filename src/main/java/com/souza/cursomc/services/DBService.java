@@ -20,6 +20,7 @@ import com.souza.cursomc.domain.PagamentoComCartao;
 import com.souza.cursomc.domain.Pedido;
 import com.souza.cursomc.domain.Produto;
 import com.souza.cursomc.domain.enums.EstadoPagamento;
+import com.souza.cursomc.domain.enums.Perfil;
 import com.souza.cursomc.domain.enums.TipoCliente;
 import com.souza.cursomc.repositories.CategoriaRepository;
 import com.souza.cursomc.repositories.CidadeRepository;
@@ -121,18 +122,25 @@ public class DBService {
 		estadoRepository.save(Arrays.asList(est1, est2));
 		cidadeRepository.save(Arrays.asList(c1, c2, c3));
 		
-		Cliente cli1 = new Cliente(null, "Maria Silvia", "gustavo.wy@gmail.com", "36378912377", TipoCliente.PESSOAFISICA, pe.encode("123"));
+		Cliente cli1 = new Cliente(null, "Maria Silvia", "gustavo.wy@gmail.com", "58252544398", TipoCliente.PESSOAFISICA, pe.encode("123"));
 		cli1.getTelefones().addAll(Arrays.asList("27363323", "87549865"));
 		
-		Endereco e1 = new Endereco(null, "Rua juares", "150", "Apto 1", "Flores", "32165478", cli1, c1);
-		Endereco e2 = new Endereco(null, "Av matos", "150", "Apto 3", "Floçres", "32165578", cli1, c2);
-		
+		Cliente cli2 = new Cliente(null, "Ana Costa", "gustavo.wteste@gmail.com", "34537408405", TipoCliente.PESSOAFISICA, pe.encode("123"));
+		cli2.getTelefones().addAll(Arrays.asList("65986598", "32549865"));
+		cli2.addPerfil(Perfil.ADMIN);
+
+				
+		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cli1, c1);
+		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
+		Endereco e3 = new Endereco(null, "Avenida Floriano", "2106", null, "Centro", "281777012", cli2, c2);
+		 		
 		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
-		
-		clienteRepository.save(Arrays.asList(cli1));
-		enderecoRepository.save(Arrays.asList(e1, e2));
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		cli2.getEnderecos().addAll(Arrays.asList(e3));
+		 		
+		clienteRepository.save(Arrays.asList(cli1, cli2));
+		enderecoRepository.save(Arrays.asList(e1, e2, e3));
+		 		
+		 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), cli1, e1);
 		Pedido ped2 = new Pedido(null, sdf.parse("10/10/2017 10:32"), cli1, e2);
 		
