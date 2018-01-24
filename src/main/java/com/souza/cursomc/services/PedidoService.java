@@ -8,7 +8,7 @@ import com.souza.cursomc.domain.ItemPedido;
 import com.souza.cursomc.domain.PagamentoComBoleto;
 import com.souza.cursomc.domain.Pedido;
 import com.souza.cursomc.domain.enums.EstadoPagamento;
-import com.souza.cursomc.exceptions.ObjectNotFoundException;
+import com.souza.cursomc.services.exceptions.ObjectNotFoundException;
 import com.souza.cursomc.repositories.ClienteRepository;
 import com.souza.cursomc.repositories.ItemPedidoRepository;
 import com.souza.cursomc.repositories.PagamentoRepository;

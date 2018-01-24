@@ -13,11 +13,10 @@ import com.souza.cursomc.domain.enums.Perfil;
 public class UserSS implements UserDetails{
 	private static final long serialVersionUID = 1L;
 	
-	
 	private Integer id;
 	private String email;
 	private String senha;
-	private Collection<? extends GrantedAuthority> authories;
+	private Collection<? extends GrantedAuthority> authorities;
 
 	public UserSS() {
 		
@@ -29,7 +28,7 @@ public class UserSS implements UserDetails{
 		this.id = id;
 		this.email = email;
 		this.senha = senha;
-		this.authories = perfis.stream().map(x -> new SimpleGrantedAuthority(x.getDescricao())).collect(Collectors.toList());
+		this.authorities = perfis.stream().map(x -> new SimpleGrantedAuthority(x.getDescricao())).collect(Collectors.toList());
 	}
 
 
@@ -38,7 +37,7 @@ public class UserSS implements UserDetails{
 	}
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return authories;
+		return authorities;
 	}
 
 	@Override
@@ -71,4 +70,8 @@ public class UserSS implements UserDetails{
 		return true;
 	}
 
+
+	public boolean hasRole(Perfil perfil) {		
+		 return getAuthorities().contains(new SimpleGrantedAuthority(perfil.getDescricao())); 
+	}
 }

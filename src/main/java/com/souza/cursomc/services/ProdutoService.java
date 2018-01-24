@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.souza.cursomc.domain.Categoria;
 import com.souza.cursomc.domain.Produto;
-import com.souza.cursomc.exceptions.ObjectNotFoundException;
+import com.souza.cursomc.services.exceptions.ObjectNotFoundException;
 import com.souza.cursomc.repositories.CategoriaRepository;
 import com.souza.cursomc.repositories.ProdutoRepository;
 
